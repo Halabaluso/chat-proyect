@@ -93,7 +93,7 @@ import { required, email, minLength, sameAs } from "@vuelidate/validators";
 
 //Types imports
 import type { MsgModel } from "../../stores/StoresInterfaces";
-import type { UserConnectDb } from "../../dbconnect/interfaces/UserInterfaces";
+import type { UserConnectDb } from "../../dbconnect/interfaces/DbInterfaces";
 
 //Variables
 const router = useRouter()

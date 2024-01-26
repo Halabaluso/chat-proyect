@@ -20,5 +20,6 @@ logs
 
 # Local env files
 .env
+FakeUser.json
 .env.*
 !.env.example
