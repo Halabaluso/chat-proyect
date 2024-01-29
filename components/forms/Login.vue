@@ -1,24 +1,24 @@
 <template>
-  <div class="flex flex-col items-center justify-center h-screen">
-    <form @submit.prevent="login" class="flex flex-col gap-2">
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <form id = "loginform" @submit.prevent="login" class="flex flex-col gap-2">
       <h1 class="text-center text-4xl font-bold">Chatstore</h1>
       <p class="text-center text-primary mb-5">Iniciar sesión</p>
       <div>
-        <div class="label">
+        <div  class="label">
           <span class="label-text">Email</span>
         </div>
-        <input v-model="state.email" type="text" placeholder="Introduzca su email"
+        <input id = "email" v-model="state.email" type="text" placeholder="Introduzca su email"
           class="input input-bordered w-full max-w-xs" />
       </div>
       <div>
         <div class="label">
           <span class="label-text">Contraseña</span>
         </div>
-        <input v-model="state.password" type="password" placeholder="Introduzca su email"
+        <input id = "password" v-model="state.password" type="password" placeholder="Introduzca su email"
           class="input input-bordered w-full max-w-xs" />
       </div>
       <div class="flex flex-col gap-2 mt-5">
-        <button type="submit" class="btn btn-primary">
+        <button id = "trigger" type="submit" class="btn btn-primary">
           <Icon name="material-symbols:chat-paste-go-outline-rounded" class="text-xl"></Icon>Acceder
         </button>
         <button @click="userStore.SetChangeForm(true)" type="button" class="btn">

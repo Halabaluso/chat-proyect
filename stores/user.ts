@@ -6,12 +6,12 @@ import UserFake from "../FakeUser.json"
 const user = defineStore("login", {
     state() {
         return {
-            user: UserFake as any,
+            user: {} as UserConnectDb,
             changeForm: false as boolean
         }
     },
     actions:{
-        SetUser(email: String, password: String){
+        SetUser(email: string, password: string){
             this.user.email = email
             this.user.password = password
         },

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen">
-    <form @submit.prevent="Login" class="flex flex-col gap-2">
+  <div class="flex flex-col items-center justify-center w-screen min-h-screen">
+    <form @submit.prevent="Login" class="flex flex-col gap-2 p-5">
       <h1 class="text-center text-4xl font-bold">Chatstore</h1>
       <p class="text-center text-primary mb-5">Registro en Chatstore</p>
       <!--Email-->
@@ -9,6 +9,7 @@
           <span class="label-text">Email</span>
         </div>
         <input
+          id = "email"
           v-model="state.email"
           type="text"
           placeholder="Introduzca su email"
@@ -21,6 +22,7 @@
           <span class="label-text">Nombre</span>
         </div>
         <input
+        id = "name"
           v-model="state.name"
           type="text"
           placeholder="Introduzca su nombre"
@@ -33,6 +35,7 @@
           <span class="label-text">Apellidos</span>
         </div>
         <input
+        id = "lastname"
           v-model="state.lastname"
           type="text"
           placeholder="Introduzca sus apellidos"
@@ -45,6 +48,7 @@
           <span class="label-text">Contraseña</span>
         </div>
         <input
+        id = "password"
           v-model="state.password"
           type="password"
           placeholder="Introduzca su email"
@@ -54,6 +58,7 @@
           <span class="label-text">Repetir contraseña</span>
         </div>
         <input
+        id = "repeatpassword"
           v-model="state.repeatPassword"
           type="password"
           placeholder="Introduzca su email"
