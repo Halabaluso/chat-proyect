@@ -20,7 +20,7 @@ interface ChatConnectDb {
     userId: string,
     when_created: string,
     when_created_id: string,
-    _id?: string,
+    _id: string,
 }
 
 interface UserConnectDb {

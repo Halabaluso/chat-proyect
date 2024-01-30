@@ -6,7 +6,7 @@
             </template>
             <template v-slot:list>
                 <Suspense>
-                <ListsGeneralList :data=ReadTableData :options=optionsList />
+                <ListsGeneralList />
             </Suspense>
             </template>
         </CommonsTabs>
@@ -15,52 +15,58 @@
 </template>
 
 <script setup lang="ts">
-import { user } from "../stores/user"
+import copy from 'copy-text-to-clipboard';
 import { chats } from "../stores/chat"
+import { alert } from "../stores/alert"
 import { loading } from "../stores/loading"
+import { table } from "../stores/table"
+import { useReadTable } from "../components/composables/ListComposable"
+import type { MsgModel } from "../stores/StoresInterfaces"
 import type { ChatConnectDb } from "../dbconnect/interfaces/DbInterfaces"
-const slots = [
+const slots = [{slot: "newchat",name: "Nuevo chat"},{slot: "list",name: "Chats"}]
+chats().GetSimpleChatsFromDb()
+const row = ["Nombre", "ID chat", "Contraseña"]
+let actionsTable = [
     {
-        slot: "newchat",
-        name: "Nuevo chat"
+        name: "",
+        class: "btn-primary",
+        icon: "material-symbols:share",
+        action: (indexArray: number) => {
+            table().SetData(indexArray)
+            const object = table().selectedData
+            let url = `?_id=${object._id}&password=${object.password}`
+            copy(url)
+            let toast:MsgModel = {
+                msg: "Link copiado 📣.",
+                type: "alert-success",
+                time: 3000
+            }
+            alert().ShowToast(toast)
+            
+        }
     },
     {
-        slot: "list",
-        name: "Chats"
+        name: "",
+        class: "btn-error",
+        icon: "material-symbols:delete-outline",
+        action: async (indexArray: number) => {
+            loading().ShowLoader()
+            table().SetData(indexArray)
+            const object = table().selectedData
+            await chats().DeleteChatFromDb(object._id)
+            let toast:MsgModel = {
+                msg: "Chat eliminado.",
+                type: "alert-warning",
+                time: 3000
+            }
+            chats().GetSimpleChatsFromDb()
+            table().UploadRows(chats().simpleChats)
+            alert().ShowToast(toast)
+            loading().ShowLoader()
+        }
     }
 ]
-
-const optionsList = [
-    { name: "Nombre chat" },
-    { name: "Identificador" },
-    { name: "Contraseña" },
-]
-
-
-const ReadTableData = async () => {
-    loading().ShowLoader()
-    const userData = user().user
-    await chats().GetChatsFromDb(userData._id)
-    let objectToSend = TransformObject(chats().chats)
-    loading().ShowLoader()
-    return objectToSend
-}
-
-const TransformObject = async (object: Array<ChatConnectDb>) => {
-    let newArray: Array<any> = []
-    object.forEach(element => {
-        let response: any = {
-            Nombre: element.name,
-            ID: element._id,
-            Contraseña: element.password,
-        }
-        newArray.push(response)
-    })
-    return newArray
-
-}
-
-
+useReadTable(chats().simpleChats, row, actionsTable)
 </script>
 
 <style></style>

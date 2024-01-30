@@ -79,6 +79,7 @@ import { nanoid } from "nanoid";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength } from "@vuelidate/validators";
 import { chats } from "../../stores/chat";
+import { table } from "../../stores/table";
 import { user } from "../../stores/user";
 import { alert } from "../../stores/alert";
 import { loading } from "../../stores/loading"
@@ -141,6 +142,8 @@ const SendFormData = async () => {
     toastMsg.time = 3000
     toastMsg.type = "alert-success"
     toastStore.ShowToast(toastMsg)
+    await chatsStore.GetSimpleChatsFromDb()
+    table().UploadRows(chats().simpleChats)
     loading().ShowLoader()
   } else {
     toastMsg.msg = "Rellene todos los campos"

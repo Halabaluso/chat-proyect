@@ -3,6 +3,7 @@ import type { GeneralResponse, GeneralServerResponse, ChatConnectDb } from "./in
 
 const url = "/api/chats/create";
 const url1 = "/api/chats/read";
+const url2 = "/api/chats/delete";
 
 const SetChatDb = async (object: ChatConnectDb) => {
   try {
@@ -71,4 +72,36 @@ const GetChatsDb = async (userId: string) => {
     return response
   }
 }
-export { GetChatsDb, SetChatDb };
+
+const DeleteChatDb = async (_id: string) => {
+  try {
+    let response: GeneralResponse = {
+      err: false,
+      serverMsg: "",
+    };
+    await fetch(url2, {
+      method: "POST",
+      body: JSON.stringify({_id: _id}),
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data: GeneralServerResponse) => {
+        response.err = data.response.err
+        response.serverMsg = data.response.msg
+        response.serverResponse = data
+      })
+      .catch(() => {
+        response.err = true;
+        response.serverMsg = "Conexión no realizada.";
+      });
+    return response;
+  } catch (error) {
+    let response: GeneralResponse = {
+      err: true,
+      serverMsg: "Problema al conectar con servidor.",
+    };
+    return response;
+  }
+}
+export { GetChatsDb, SetChatDb, DeleteChatDb };
