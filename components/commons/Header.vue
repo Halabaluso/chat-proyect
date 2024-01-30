@@ -1,9 +1,9 @@
 <template>
     <div id = "header" class="navbar bg-base-100">
         <div class="flex-none">
-            <button class="btn btn-square btn-ghost">
-                <label id = "drawerbuttom" for="my-drawer" class="btn btn-primary drawer-button"></label>
-            </button>
+            <label id = "drawerbuttom" for="my-drawer" class="btn btn-square btn-ghost">
+                <Icon name="material-symbols:menu-rounded" class="text-2xl"/>
+            </label>
         </div>
         <div class="flex-1">
             <a class="btn btn-ghost text-xl">Chatstore</a>

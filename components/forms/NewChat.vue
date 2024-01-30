@@ -1,5 +1,6 @@
 <template>
   <section>
+    <slot name = "title"></slot>
     <h1 class="font-bold text-lg text-primary">
       <Icon
         name="material-symbols-light:business-messages-outline-rounded"
@@ -20,7 +21,7 @@
             v-model="state.name"
             type="text"
             placeholder="Introduzca su email"
-            class="input input-bordered w-full max-w-xs"
+            class="input input-bordered w-full"
           />
         </div>
         <div>
@@ -34,7 +35,7 @@
               v-model="state.password"
               type="text"
               placeholder="Introduzca su email"
-              class="input input-bordered w-full max-w-xs"
+              class="input input-bordered w-full"
             />
             <button type="button" @click="CreatePass" class="btn">
               <Icon name="solar:password-minimalistic-input-linear"></Icon>
