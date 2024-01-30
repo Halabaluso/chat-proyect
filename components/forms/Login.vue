@@ -42,8 +42,8 @@ import type { MsgModel } from "../../stores/StoresInterfaces";
 
 //Variables
 const state = reactive({
-  email: "pruebamail@pruebamail.com" as string,
-  password: "pruebaprueba" as string,
+  email: "" as string,
+  password: "" as string,
 });
 
 const rulesForm = {

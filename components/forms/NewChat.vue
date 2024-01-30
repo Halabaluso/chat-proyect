@@ -18,6 +18,7 @@
             </span>
           </div>
           <input
+          id = "chatname"
             v-model="state.name"
             type="text"
             placeholder="Introduzca su email"
@@ -32,6 +33,7 @@
           </div>
           <div class="flex flex-row items-center gap-2">
             <input
+            id = "chatpassword"
               v-model="state.password"
               type="text"
               placeholder="Introduzca su email"
@@ -50,6 +52,7 @@
           </span>
         </div>
         <textarea
+        id = "chatconversation"
           v-model="state.msg"
           class="textarea textarea-bordered textarea-lg w-full"
           placeholder="Comienza tu mensaje de chat aquí"

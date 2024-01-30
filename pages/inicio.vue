@@ -1,13 +1,13 @@
 <template>
     <div>
-        <CommonsTabs :slots=slots>
+        <CommonsTabs id = "chattab" :slots=slots>
             <template v-slot:newchat>
                 <FormsNewChat />
             </template>
             <template v-slot:list>
                 <Suspense>
-                <ListsGeneralList />
-            </Suspense>
+                    <ListsGeneralList />
+                </Suspense>
             </template>
         </CommonsTabs>
 
@@ -23,7 +23,7 @@ import { table } from "../stores/table"
 import { useReadTable } from "../components/composables/ListComposable"
 import type { MsgModel } from "../stores/StoresInterfaces"
 import type { ChatConnectDb } from "../dbconnect/interfaces/DbInterfaces"
-const slots = [{slot: "newchat",name: "Nuevo chat"},{slot: "list",name: "Chats"}]
+const slots = [{slot: "newchat",name: "Nuevo chat"},{slot: "list",name: "Todos los chats"}]
 chats().GetSimpleChatsFromDb()
 const row = ["Nombre", "ID chat", "Contraseña"]
 let actionsTable = [
@@ -43,7 +43,8 @@ let actionsTable = [
             }
             alert().ShowToast(toast)
             
-        }
+        },
+        id: "sharechat"
     },
     {
         name: "",
@@ -63,7 +64,8 @@ let actionsTable = [
             table().UploadRows(chats().simpleChats)
             alert().ShowToast(toast)
             loading().ShowLoader()
-        }
+        },
+        id: "deletechat"
     }
 ]
 useReadTable(chats().simpleChats, row, actionsTable)
