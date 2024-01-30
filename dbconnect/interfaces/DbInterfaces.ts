@@ -27,7 +27,8 @@ interface UserConnectDb {
     lastname: string,
     email: string,
     password: string,
-    when_register: string
+    when_register: string,
+    _id: string
 }
 
 export type {

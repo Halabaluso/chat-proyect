@@ -2,7 +2,7 @@
 import type { GeneralResponse, GeneralServerResponse, ChatConnectDb } from "./interfaces/DbInterfaces";
 
 const url = "/api/chats/create";
-const url1 = "/api/users/read";
+const url1 = "/api/chats/read";
 
 const SetChatDb = async (object: ChatConnectDb) => {
   try {
@@ -36,12 +36,13 @@ const SetChatDb = async (object: ChatConnectDb) => {
   }
 };
 
-const GetChatDb = async (chatid: string) => {
+
+const GetChatsDb = async (userId: string) => {
   try {
     let response: null | GeneralResponse = null;
       await fetch(url1, {
         method: "POST", 
-        body: JSON.stringify({chatid: chatid})
+        body: JSON.stringify({userId: userId})
       })
     .then((data) => {
       return data.json()
@@ -70,4 +71,4 @@ const GetChatDb = async (chatid: string) => {
     return response
   }
 }
-export { GetChatDb, SetChatDb };
+export { GetChatsDb, SetChatDb };

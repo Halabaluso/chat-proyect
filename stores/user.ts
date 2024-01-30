@@ -1,7 +1,6 @@
 import { defineStore } from "pinia"
 import { GetUserDb, SetUserDb } from "../dbconnect/UserConnect"
 import type { UserConnectDb } from "../dbconnect/interfaces/DbInterfaces"
-import UserFake from "../FakeUser.json"
 
 const user = defineStore("login", {
     state() {
@@ -27,7 +26,6 @@ const user = defineStore("login", {
             if(response?.err === false){
                 const stringJson = JSON.parse(response?.serverResponse?.response.object as string)
                 this.user = stringJson[0]
-                console.log(this.user)
             }
             return response
         },

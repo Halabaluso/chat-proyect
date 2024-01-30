@@ -1,38 +1,51 @@
+
+import type { data } from 'cypress/types/jquery';
 <template>
-  <div class="overflow-x-auto">
-    <table class="table">
-      <!-- head -->
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- row 1 -->
-        <tr>
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Blue</td>
-        </tr>
-        <!-- row 2 -->
-        <tr>
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
-        </tr>
-        <!-- row 3 -->
-        <tr>
-          <th>3</th>
-          <td>Brice Swyre</td>
-          <td>Tax Accountant</td>
-          <td>Red</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+                <tr>
+                    <template v-for="option in props.options" :key="option">
+                        <th>{{ option.name }}</th>
+                    </template>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- row 1 -->
+                <template>
+                    <template v-for="(tableData, i) in state.tableData" :key="i">
+                        <tr>
+                            <th v-for="data in tableData" :key="data._id">{{ data }}</th>
+                        </tr>
+                    </template>
+                </template>
+            </tbody>
+        </table>
+    </div>
 </template>
+<script setup lang="ts">
+interface OptionProp {
+    name: string
+}
+const props = defineProps({
+    options: Array<OptionProp>,
+    data: Function
+})
+
+const state = reactive({
+    tableData: [] as Array<any>
+})
+
+onMounted(async() => {
+    await ReadTableData()
+})
+
+const ReadTableData = async () => {
+    if(props.data !== undefined){
+        const response = await props.data()
+        console.log(response)
+        state.tableData = response
+    }
+}
+</script>
