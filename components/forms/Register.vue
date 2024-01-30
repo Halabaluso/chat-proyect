@@ -153,6 +153,7 @@ const Login = async () => {
       name: state.name,
       password: state.password,
       when_register: Date.now().toString(),
+      _id: "asdfasdasdasdas"
     };
     const response = await userStore.SetUserFromDb(object);
     console.log(response)

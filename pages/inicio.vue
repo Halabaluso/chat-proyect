@@ -2,10 +2,12 @@
     <div>
         <CommonsTabs :slots=slots>
             <template v-slot:newchat>
-                <FormsNewChat/>
+                <FormsNewChat />
             </template>
             <template v-slot:list>
+                <Suspense>
                 <ListsGeneralList :data=ReadTableData :options=optionsList />
+            </Suspense>
             </template>
         </CommonsTabs>
 
@@ -30,6 +32,7 @@ const slots = [
 
 const optionsList = [
     { name: "Nombre chat" },
+    { name: "Identificador" },
     { name: "Contraseña" },
 ]
 
@@ -43,18 +46,21 @@ const ReadTableData = async () => {
     return objectToSend
 }
 
-const TransformObject = (object: Array<ChatConnectDb>) => {
+const TransformObject = async (object: Array<ChatConnectDb>) => {
     let newArray: Array<any> = []
     object.forEach(element => {
         let response: any = {
             Nombre: element.name,
-            Contraseña: element.password
+            ID: element._id,
+            Contraseña: element.password,
         }
         newArray.push(response)
     })
     return newArray
 
 }
+
+
 </script>
 
 <style></style>
