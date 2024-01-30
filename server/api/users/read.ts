@@ -27,7 +27,12 @@ export default defineEventHandler(async (event) => {
         if(connectDb.err === false){
             const User = mongoose.model('users', UserSchema);
             const responsedb = await User.find({email: body.email, password: body.password}).exec()
-            response.object = JSON.stringify(responsedb)
+            if(responsedb.length > 0){
+                response.object = JSON.stringify(responsedb)
+            }else{
+                response.err = true
+                response.msg = "Ningún usuario encontrado"
+            }
         }else{
             response.err = true,
             response.msg = "Error de conexión a servidor"

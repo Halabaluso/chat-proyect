@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center w-screen min-h-screen">
-    <form @submit.prevent="Login" class="flex flex-col gap-2 p-5">
+    <form id = "registerform" @submit.prevent="Login" class="flex flex-col gap-2 p-5">
       <h1 class="text-center text-4xl font-bold">Chatstore</h1>
       <p class="text-center text-primary mb-5">Registro en Chatstore</p>
       <!--Email-->
@@ -9,7 +9,7 @@
           <span class="label-text">Email</span>
         </div>
         <input
-          id = "email"
+          id = "registeremail"
           v-model="state.email"
           type="text"
           placeholder="Introduzca su email"
@@ -22,7 +22,7 @@
           <span class="label-text">Nombre</span>
         </div>
         <input
-        id = "name"
+        id = "registername"
           v-model="state.name"
           type="text"
           placeholder="Introduzca su nombre"
@@ -35,7 +35,7 @@
           <span class="label-text">Apellidos</span>
         </div>
         <input
-        id = "lastname"
+        id = "registerlastname"
           v-model="state.lastname"
           type="text"
           placeholder="Introduzca sus apellidos"
@@ -48,7 +48,7 @@
           <span class="label-text">Contraseña</span>
         </div>
         <input
-        id = "password"
+        id = "registerpassword"
           v-model="state.password"
           type="password"
           placeholder="Introduzca su email"
@@ -58,7 +58,7 @@
           <span class="label-text">Repetir contraseña</span>
         </div>
         <input
-        id = "repeatpassword"
+        id = "registerrepeatpassword"
           v-model="state.repeatPassword"
           type="password"
           placeholder="Introduzca su email"
@@ -155,6 +155,7 @@ const Login = async () => {
       when_register: Date.now().toString(),
     };
     const response = await userStore.SetUserFromDb(object);
+    console.log(response)
     if (response.err === false) {
       loadStore.ShowLoader()
       objectToast.msg = "Usuario registrado";
@@ -172,6 +173,7 @@ const Login = async () => {
     objectToast.msg = "Complete bien todos los campos";
     objectToast.type = "alert-error";
     alertStore.ShowToast(objectToast);
+    loadStore.ShowLoader()
   }
 };
 

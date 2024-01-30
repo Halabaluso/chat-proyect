@@ -42,8 +42,8 @@ import type { MsgModel } from "../../stores/StoresInterfaces";
 
 //Variables
 const state = reactive({
-  email: "" as string,
-  password: "" as string,
+  email: "pruebamail@pruebamail.com" as string,
+  password: "pruebaprueba" as string,
 });
 
 const rulesForm = {
@@ -74,6 +74,7 @@ const login = async () => {
   if (validateForm) {
     loadingStore.ShowLoader()
     const response = await userStore.GetUserFromDb(state.email, state.password)
+    
     if(response?.err === false){
       loadingStore.ShowLoader()
       alertMsg.msg = "Bienvenido";
