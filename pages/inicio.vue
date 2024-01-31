@@ -61,7 +61,8 @@ let actionsTable = [
         class: "btn-primary",
         icon: "material-symbols-light:chat-paste-go-outline",
         action: async (indexArray: number) => {
-            useRouter().push("/chat")
+            chats().GetChatSelected(indexArray, "simple")
+            await useRouter().push("/chat")
         },
         id: "openchat"
     },

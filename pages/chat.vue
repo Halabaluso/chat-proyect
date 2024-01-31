@@ -1,3 +1,5 @@
 <template>
-    <p>This is a chat</p>
+    <main class="p-5">
+        <ChatsChatView/>
+    </main>
 </template>
