@@ -1,6 +1,6 @@
 
 describe("New chat work fine", () => {
-    it("Chat not work if inputs are empty", () => {
+    it("New chat not work if inputs are empty", () => {
         cy.visit("http://localhost:3000/")
         cy.get("#email").type("pruebamail@pruebamail.com")
         cy.get("#password").type("pruebaprueba")
@@ -23,14 +23,14 @@ describe("New chat work fine", () => {
         cy.contains("Chat creado correctamente")
     })
 
-    it("New chat work fine", () => {
+    it("Delete chat work fine", () => {
         cy.visit("http://localhost:3000/")
         cy.get("#email").type("pruebamail@pruebamail.com")
         cy.get("#password").type("pruebaprueba")
         cy.get("#loginform").submit()
 
-        cy.contains("Todos los chats").click()
-        cy.get("#deletechat").click()
         cy.get("#label1").click()
+        cy.get("#deletechat1").click()
+        cy.get(".alert").should("have.class", "alert-warning")
     })
 })

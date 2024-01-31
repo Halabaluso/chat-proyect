@@ -6,7 +6,8 @@ import type { data } from 'cypress/types/jquery';
             <!-- head -->
             <thead>
                 <tr>
-                    <template v-for="data in tableStore.head" :key="data">
+                    <template v-for="(data, i) in tableStore.head" :key="data">
+                        <th>{{ i }}</th>
                         <th>{{ data }}</th>
                     </template>
                     <th>Acciones</th>
@@ -24,7 +25,7 @@ import type { data } from 'cypress/types/jquery';
                             </template>
                             <th class="flex flex-row gap-2">
                                 <template v-for="actions in tableStore.actions" :key="actions">
-                                    <button @click="actions.action(i)" class="btn" :class="actions.class">
+                                    <button :id="actions.id + i" @click="actions.action(i)" class="btn" :class="actions.class">
                                         <Icon :name="actions.icon" />{{ actions.name }}
                                     </button>
                                 </template>

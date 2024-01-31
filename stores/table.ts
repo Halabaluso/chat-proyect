@@ -2,6 +2,9 @@ import { defineStore } from "pinia"
 
 interface ActionsObject{
     name: string,
+    class: string,
+    id: string,
+    icon: string,
     action: Function
 }
 

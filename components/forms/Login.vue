@@ -39,7 +39,8 @@ import { required, email, minLength, sameAs } from "@vuelidate/validators";
 //Import de tipos
 import type { MsgModel } from "../../stores/StoresInterfaces";
 
-
+const usertry = "pruebamail@pruebamail.com"
+const pass = "pruebaprueba"
 //Variables
 const state = reactive({
   email: "" as string,

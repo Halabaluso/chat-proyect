@@ -9,7 +9,7 @@
                 </div>
             </template>
             <template v-else>
-                <input :id = "`label` + i" type="radio" name="my_tabs_2" role="tab" class="tab" :aria-label="`${slot.name}`"
+                <input :id = "`label` + i" type="radio" name="my_tabs_2" role="tab" class="tab min-w-28" :aria-label="`${slot.name}`"
                     />
                 <div role="tabpanel" class="tab-content w-full py-5">
                     <slot :name = "slot.slot"></slot>
