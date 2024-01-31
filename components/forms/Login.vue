@@ -43,8 +43,8 @@ const usertry = "pruebamail@pruebamail.com"
 const pass = "pruebaprueba"
 //Variables
 const state = reactive({
-  email: "" as string,
-  password: "" as string,
+  email: usertry as string,
+  password: pass as string,
 });
 
 const rulesForm = {

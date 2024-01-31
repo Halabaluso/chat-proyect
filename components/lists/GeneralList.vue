@@ -1,13 +1,13 @@
 
 import type { data } from 'cypress/types/jquery';
 <template>
-    <div class="overflow-x-auto">
-        <table class="table">
+    <div class="">
+        <table class="table table-pin-cols">
             <!-- head -->
             <thead>
                 <tr>
-                    <template v-for="(data, i) in tableStore.head" :key="data">
-                        <th>{{ i }}</th>
+                    <th></th>
+                    <template v-for="(data) in tableStore.head" :key="data">
                         <th>{{ data }}</th>
                     </template>
                     <th>Acciones</th>
@@ -18,15 +18,16 @@ import type { data } from 'cypress/types/jquery';
                 <template v-for="(row, i) in tableStore.row" :key="row">
                     <template v-if="i > state.startRowsTable && i < state.endRowsTable">
                         <tr>
+                            <th>{{ i }}</th>
                             <template v-for="data in row" :key="data">
                                 <th>
-                                    <p class="font-normal">{{ data }}</p>
+                                    <p class="font-normal min-w-max">{{ data }}</p>
                                 </th>
                             </template>
                             <th class="flex flex-row gap-2">
                                 <template v-for="actions in tableStore.actions" :key="actions">
                                     <button :id="actions.id + i" @click="actions.action(i)" class="btn" :class="actions.class">
-                                        <Icon :name="actions.icon" />{{ actions.name }}
+                                        <Icon :name="actions.icon" class = "text-lg"/>{{ actions.name }}
                                     </button>
                                 </template>
                             </th>
@@ -37,9 +38,9 @@ import type { data } from 'cypress/types/jquery';
                 <!-- row 2 -->
             </tbody>
         </table>
-        <div class="flex flex-row justify-center items-center mt-5">
+        <div class="flex flex-row mt-5">
             <button @click="BackPage" class="join-item btn btn-primary">«</button>
-            <button class="join-item btn btn-ghost">Página {{ state.page }}</button>
+            <button id="numberpage" class="join-item btn btn-ghost">Página {{ state.page }}</button>
             <button @click="NextPage" class="join-item btn btn-primary">»</button>
         </div>
     </div>
@@ -57,12 +58,14 @@ const state = reactive({
 const NextPage = () => {
     if ((tableStore.row.length - 10) > (state.startRowsTable)) {
         state.page = state.page + 1
+        state.endRowsTable = state.endRowsTable + state.showRowsPerPage
         state.startRowsTable = state.startRowsTable + state.showRowsPerPage
     }
 }
 const BackPage = () => {
     if (state.page > 1) {
         state.page = state.page - 1
+        state.endRowsTable = state.endRowsTable - state.showRowsPerPage
         state.startRowsTable = state.endRowsTable - state.showRowsPerPage
     }
 }

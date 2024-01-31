@@ -9,6 +9,8 @@ interface SimpleChat{
   password: string
 }
 
+type WhereSearchChat = "simple" | "normal"
+
 const chats = defineStore("chats", {
   state() {
     return {
@@ -25,6 +27,20 @@ const chats = defineStore("chats", {
     async SetChatFromDb(object: ChatConnectDb) {
       const response = SetChatDb(object);
       return response;
+    },
+    async GetChatSelected(id: number, from: WhereSearchChat){
+      if(from === "simple"){
+        const findElement = this.simpleChats.find((element, i) => i == id)
+        if(findElement !== undefined){
+          this.simpleChat = findElement
+        }
+      }
+      if(from === "normal"){
+        const findElement = this.chats.find((element, i) => i == id)
+        if(findElement !== undefined){
+          this.chat = findElement
+        }
+      }
     },
     async GetChatsFromDb() {
       this.chats = []
@@ -61,7 +77,7 @@ const chats = defineStore("chats", {
       let response = await DeleteChatDb(_id)
       console.log(response)
       return response 
-    }
+    },
   },
 });
 
