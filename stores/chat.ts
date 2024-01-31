@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import { SetChatDb, GetChatsDb, DeleteChatDb } from "../dbconnect/ChatConnect";
+import { SetChatDb, GetChatsDb, DeleteChatDb, UpdateChatDb } from "../dbconnect/ChatConnect";
 import { user } from "./user"
-import type { ChatConnectDb } from "../dbconnect/interfaces/DbInterfaces";
+import type { ChatConnectDb, ChatMsg } from "../dbconnect/interfaces/DbInterfaces";
 
 interface SimpleChat{
   name: string,
@@ -30,10 +30,7 @@ const chats = defineStore("chats", {
     },
     async GetChatSelected(id: number, from: WhereSearchChat){
       if(from === "simple"){
-        const findElement = this.simpleChats.find((element, i) => i == id)
-        if(findElement !== undefined){
-          this.simpleChat = findElement
-        }
+          this.chat = this.chats[id]
       }
       if(from === "normal"){
         const findElement = this.chats.find((element, i) => i == id)
@@ -54,12 +51,9 @@ const chats = defineStore("chats", {
       return response;
     },
     async GetSimpleChatsFromDb(){
-      this.simpleChats = []
-      const response = await GetChatsDb(user().user._id);
+      const response = await this.GetChatsFromDb()
       if(response?.err === false){
-        const chatsString = response.serverResponse?.response.object as string
-        const chatsJSON = JSON.parse(chatsString) as Array<ChatConnectDb>
-        chatsJSON.forEach(element => {
+        this.chats.forEach(element => {
           let object:SimpleChat = {
             name: element.name,
             _id: element._id,
@@ -72,6 +66,10 @@ const chats = defineStore("chats", {
         this.simpleChats = []
       }
       return response;
+    },
+    async UpdateChatMsg(id: string, object: ChatMsg){
+      const response = UpdateChatDb(id, object)
+      return response
     },
     async DeleteChatFromDb(_id: string){
       let response = await DeleteChatDb(_id)

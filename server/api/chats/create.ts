@@ -7,7 +7,8 @@ interface BodyInterface {
     chats?: object,
     userId: string,
     when_created: string,
-    when_created_id: string
+    when_created_id: string,
+    _id?: string,
 }
 
 interface ServerResponse {

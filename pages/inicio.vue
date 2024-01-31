@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <CommonsHeader/>
+    <main class="p-5">
         <CommonsBreadcrumbs :breadArray="breadArray"/>
         <CommonsTabs id = "chattab" :slots=slots>
             <template v-slot:newchat>
@@ -11,7 +12,7 @@
                 </Suspense>
             </template>
         </CommonsTabs>
-    </div>
+    </main>
 </template>
 
 <script setup lang="ts">
@@ -25,6 +26,7 @@ import type { MsgModel, ModalObject } from "../stores/StoresInterfaces"
 import type { ChatConnectDb } from "../dbconnect/interfaces/DbInterfaces"
 const slots = [{slot: "newchat",name: "Nuevo chat"},{slot: "list",name: "Todos los chats"}]
 chats().GetSimpleChatsFromDb()
+console.log("Pasa :D")
 const breadArray = [
     {
         name: "Inicio",

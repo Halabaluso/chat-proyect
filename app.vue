@@ -5,8 +5,7 @@
     <div class="drawer-content">
       <!-- Page content here -->
       <main v-show="!loadStore.show">
-        <CommonsHeader v-if="userStore.user.email !== undefined"/>
-        <NuxtPage class="p-5" />
+        <NuxtPage/>
         <ToastGeneralToast />
       </main>
       <CommonsLoading v-show="loadStore.show" />

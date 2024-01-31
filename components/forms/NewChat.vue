@@ -118,6 +118,16 @@ const msgResponse = computed(() => {
     name: state.name,
     password: state.password,
     userId: userStore.user._id,
+    chats: [
+      {
+        dayFormat: moment().format("DD-MM-YYYY"),
+        whenFormat: moment().format("HH:mm:ss"),
+        whenNumber: Date.now(),
+        from: "admin",
+        msg: state.msg,
+        id: nanoid()
+      }
+    ],
     when_created: moment().format(),
     when_created_id: Date.now().toString(),
   };

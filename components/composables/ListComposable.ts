@@ -7,10 +7,6 @@ const useReadTable = (row: Array<any>, head: Array<any>, actions: Array<any>) =>
         await DefineActionsChatData()
     })
 
-    onUpdated(() => {
-        console.log("Pasan cosas")
-    })
-
     const ReadListData = async () => {
         table().SetTableData(head, row)
     }

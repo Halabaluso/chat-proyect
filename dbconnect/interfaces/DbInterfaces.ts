@@ -13,10 +13,19 @@ interface GeneralResponse {
     serverMsg: string
 }
 
+interface ChatMsg{
+    dayFormat: string,
+    whenFormat: string,
+    whenNumber: number,
+    from: "admin" | "user",
+    msg: string,
+    id: string
+}
+
 interface ChatConnectDb {
     name: string,
     password: string,
-    chats?: object,
+    chats?: Array<ChatMsg>,
     userId: string,
     when_created: string,
     when_created_id: string,
@@ -36,5 +45,6 @@ export type {
     GeneralResponse,
     GeneralServerResponse,
     UserConnectDb,
-    ChatConnectDb
+    ChatConnectDb,
+    ChatMsg
 }
