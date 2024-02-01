@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { SetChatDb, GetChatsDb, DeleteChatDb, UpdateChatDb } from "../dbconnect/ChatConnect";
+import { SetChatDb, GetChatsDb, DeleteChatDb, UpdateChatDb, GetChatDb } from "../dbconnect/ChatConnect";
 import { user } from "./user"
 import type { ChatConnectDb, ChatMsg } from "../dbconnect/interfaces/DbInterfaces";
 
@@ -49,6 +49,10 @@ const chats = defineStore("chats", {
         this.chats = []
       }
       return response;
+    },
+    async GetChatFromDb(_id: string) {
+      const response = GetChatDb(_id)
+      return response
     },
     async GetSimpleChatsFromDb(){
       const response = await this.GetChatsFromDb()

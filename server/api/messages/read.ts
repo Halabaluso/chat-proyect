@@ -1,25 +1,14 @@
-import { find } from "cypress/types/lodash"
 import { mongoose, ConnectFunction } from "../../mongo/connect"
 import { ChatSchema } from "../../mongo/schemas/ChatSchema"
 
-interface ChatMsg{
-    dayFormat: string,
-    whenFormat: string,
-    whenNumber: number,
-    from: "admin" | "user",
-    msg: string,
-    id: string
-}
-
 interface BodyInterface {
     _id: string,
-    object: ChatMsg
 }
 
 interface ChatModel {
     name: string,
     password: string,
-    chats?: Array<ChatMsg>,
+    chats?: object,
     userId: string,
     when_created: string,
     when_created_id: string,
@@ -30,31 +19,31 @@ interface ServerResponse {
     err: boolean, 
     code: string, 
     msg: string,
-    object?: ChatModel
+    object: any
 }
 
 export default defineEventHandler(async (event) => {
     try {
         const response:ServerResponse = {
             err: false, 
-            msg: "Object updated",
+            msg: "Chat correcto",
             code: "200",
+            object: ""
         }
-
-        const bodyString:string = await readBody(event)
+        const bodyString = await readBody(event)
         const body:BodyInterface = JSON.parse(bodyString)
         const connectDb = await ConnectFunction()
         if(connectDb.err === false){
             const Chat = mongoose.model('chats', ChatSchema);
-            await Chat.findOneAndUpdate({_id: body._id}, {$push: {chats: body.object}}).then(() => {
-                response.msg = "Chat updated"
-            })
-            .catch(() => {
+            const responsedb = await Chat.find({_id: body._id}).exec()
+            if(responsedb.length > 0){
+                response.object = JSON.stringify(responsedb)
+            }else{
                 response.err = true
-                response.msg = "Error al hacer update de mensaje"
-            })
+                response.msg = "Ningún chat encontrado"
+            }
         }else{
-            response.err = true
+            response.err = true,
             response.msg = "Error de conexión a servidor"
         }
         return{
@@ -62,9 +51,10 @@ export default defineEventHandler(async (event) => {
         }   
     } catch (error: any) {
         const response:ServerResponse = {
-            err: true, 
+            err: false, 
             msg: error.toString(),
-            code: "400"
+            code: "400",
+            object: ""
         }
         return{
             response

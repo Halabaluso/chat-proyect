@@ -1,5 +1,3 @@
-
-import type { data } from 'cypress/types/jquery';
 <template>
     <div class="">
         <table class="table table-pin-cols">
@@ -16,9 +14,9 @@ import type { data } from 'cypress/types/jquery';
             <tbody>
                 <!-- row 1 -->
                 <template v-for="(row, i) in tableStore.row" :key="row">
-                    <template v-if="i > state.startRowsTable && i < state.endRowsTable">
+                    <template v-if="i >= state.startRowsTable && i < state.endRowsTable">
                         <tr>
-                            <th>{{ i }}</th>
+                            <th>{{ i + 1 }}</th>
                             <template v-for="data in row" :key="data">
                                 <th>
                                     <p class="font-normal min-w-max">{{ data }}</p>

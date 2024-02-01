@@ -5,6 +5,7 @@ const url = "/api/chats/create";
 const url1 = "/api/chats/read";
 const url2 = "/api/chats/delete";
 const url3 = "/api/messages/update"
+const url4 = "/api/messages/read"
 
 const SetChatDb = async (object: ChatConnectDb) => {
   try {
@@ -45,6 +46,41 @@ const GetChatsDb = async (userId: string) => {
       await fetch(url1, {
         method: "POST", 
         body: JSON.stringify({userId: userId})
+      })
+    .then((data) => {
+      return data.json()
+    })
+    .then((data:GeneralServerResponse) => {
+      if(data !== null){
+        response = {
+          err: data.response.err,
+          serverMsg: data.response.msg,
+          serverResponse: data
+        }
+      }
+    })
+    .catch(() => {
+      response = {
+        err: true,
+        serverMsg: "Error de conexión",
+      }
+    })
+    return response
+  } catch (error) {
+    let response:GeneralResponse = {
+      err: true,
+      serverMsg: "Error de conexión",
+    }
+    return response
+  }
+}
+
+const GetChatDb = async (_id: string) => {
+  try {
+    let response: null | GeneralResponse = null;
+      await fetch(url4, {
+        method: "POST", 
+        body: JSON.stringify({_id: _id})
       })
     .then((data) => {
       return data.json()
@@ -137,4 +173,5 @@ const UpdateChatDb = async (_id: string, chat: ChatMsg) => {
     return response;
   }
 }
-export { GetChatsDb, SetChatDb, DeleteChatDb, UpdateChatDb };
+
+export { GetChatsDb, SetChatDb, DeleteChatDb, UpdateChatDb, GetChatDb };
